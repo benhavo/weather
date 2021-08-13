@@ -16,7 +16,7 @@ export default function Dashboard(props) {
     };
 
     const handleChange = (e) => {
-        setLocation(e.target.value);
+
     };
 
     const getLatLong = () => {
@@ -25,7 +25,7 @@ export default function Dashboard(props) {
             url: 'https://open.mapquestapi.com/geocoding/v1/address',
             params: {
                 key: 'yqMMGZPKgoa0m4l9Te7wdhk3XdiFG7C7',
-                location: location
+                location: $('#location').value()
             }
         };
 
@@ -82,8 +82,8 @@ export default function Dashboard(props) {
             </div>
             <Input
                 type="text"
-                name="Location"
-                value={location}
+                name="location"
+                value="Lexington, KY"
                 className="mt-1 block w-full"
                 handleChange={handleChange}
             />
