@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'a43827ebc4ba231dafe2b784639db15026d697a4',
+        'reference' => 'f306a379f645d00d258eb72c895a38889702eba5',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -379,6 +379,15 @@
                 0 => 'v8.53.1',
             ),
         ),
+        'inertiajs/inertia-laravel' => array(
+            'pretty_version' => 'v0.3.6',
+            'version' => '0.3.6.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../inertiajs/inertia-laravel',
+            'aliases' => array(),
+            'reference' => '726b1e0d4fc399089dd29820a78e40d1c9aad2eb',
+            'dev_requirement' => false,
+        ),
         'kodova/hamcrest-php' => array(
             'dev_requirement' => true,
             'replaced' => array(
@@ -409,7 +418,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'a43827ebc4ba231dafe2b784639db15026d697a4',
+            'reference' => 'f306a379f645d00d258eb72c895a38889702eba5',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -420,6 +429,15 @@
             'aliases' => array(),
             'reference' => '3e1aa8679b10ae9210eebfbc2ee5f3600f356702',
             'dev_requirement' => true,
+        ),
+        'laravel/sanctum' => array(
+            'pretty_version' => 'v2.11.2',
+            'version' => '2.11.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laravel/sanctum',
+            'aliases' => array(),
+            'reference' => 'b21e65cbe13896946986cb0868180cd69e1bd5d3',
+            'dev_requirement' => false,
         ),
         'laravel/tinker' => array(
             'pretty_version' => 'v2.6.1',
@@ -1222,6 +1240,15 @@
             'aliases' => array(),
             'reference' => '34a41e998c2183e22995f158c581e7b5e755ab9e',
             'dev_requirement' => true,
+        ),
+        'tightenco/ziggy' => array(
+            'pretty_version' => 'v1.3.5',
+            'version' => '1.3.5.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../tightenco/ziggy',
+            'aliases' => array(),
+            'reference' => '05411b50ffb9d1fa8a0f86cf71c72702c2baf5ab',
+            'dev_requirement' => false,
         ),
         'tijsverkoyen/css-to-inline-styles' => array(
             'pretty_version' => '2.2.3',
