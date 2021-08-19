@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import Authenticated from '@/Layouts/Authenticated';
 import Button from '@/Components/Button';
 import Input from '@/Components/Input';
+import Locations from '@/Components/Locations';
 import { Head } from '@inertiajs/inertia-react';
 import axios from "axios";
 
 export default function Dashboard(props) {
     const [units, setUnits] = useState('metric');
     const [location, setLocation] = useState('Lexington, KY');
+
+    var intervalID;
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -73,7 +76,11 @@ export default function Dashboard(props) {
         >
             <Head title="Dashboard" />
 
-            <div className="py-12">
+            <Locations
+
+            />
+
+            <div className="flex justify-between h-16">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 bg-white border-b border-gray-200">You're logged in!</div>
