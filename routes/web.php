@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +30,8 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/user', [UsersController::class, 'getUser'])->name('user');
-
+    Route::post('/location', [LocationController::class, 'store'])->name('location.store');
+    Route::get('/location', [LocationController::class, 'index'])->name('location.index');
 });
 
 require __DIR__.'/auth.php';

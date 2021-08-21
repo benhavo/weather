@@ -19,6 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['auth:api'], 'namespace' => '\App\Http\Controllers'], function () {
-    Route::post('/location', 'LocationController@store')->name('api.locations.store');
+    //
 });
 

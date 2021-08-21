@@ -7,53 +7,54 @@ import { Head } from '@inertiajs/inertia-react';
 import axios from "axios";
 
 export default function Dashboard(props) {
-    const [units, setUnits] = useState('metric');
     const [location, setLocation] = useState('Lexington, KY');
-
-    var intervalID;
+    const [locations, setLocations] = useState(props.locations);
 
     const addLocation = (e) => {
-        let latLong = getLatLong();
-
-        if (!latLong) {
-            // TODO: Error Message to user
-            return;
-        }
-
-        let options = {
-            method: 'POST',
-            url: '/api/location',
-            params: {
-                user_id: props.user.id,
-                name: location,
-                lat: latLong[0],
-                long: latLong[1]
-            }
-        };
-
-        axios.request(options).then(function (response) {
-            console.log(response.data);
-        }).catch(function (error) {
-            // TODO: Handle errors like a pro
-            console.error(error);
-        });
-    }
-
-    const getLatLong = () => {
+        // First, we need the lat/long from the Mapquest API.
+        // This allows input of address to determine location
         let options = {
             method: 'GET',
             url: 'https://open.mapquestapi.com/geocoding/v1/address',
             params: {
                 key: 'yqMMGZPKgoa0m4l9Te7wdhk3XdiFG7C7',
-                location: {location}
+                location: location
             }
         };
 
         axios.request(options).then(function (response) {
-            return [
+            let latLong = [
                 response.data.results[0].locations[0].latLng.lat,
                 response.data.results[0].locations[0].latLng.lng
             ];
+
+            if (!latLong) {
+                // TODO: Error Message to user
+                return;
+            }
+
+            // Now we store the new location.
+            // POST to the location.store route
+            // (typically, I would do this via Laravel's API-specific routing
+            // with api tokens generated for users. That seems too deep for this
+            // small project)
+            let options = {
+                method: 'POST',
+                url: '/location',
+                params: {
+                    user_id: props.user.id,
+                    name: location,
+                    lat: latLong[0],
+                    long: latLong[1]
+                }
+            };
+
+            axios.request(options).then(function (response) {
+                refreshLocations();
+            }).catch(function (error) {
+                // TODO: Handle errors like a pro
+                console.error(error);
+            });
         }).catch(function (error) {
             // TODO: Handle errors like a pro
             console.error(error);
@@ -61,24 +62,14 @@ export default function Dashboard(props) {
         });
     }
 
-    const getWeather = (latLon) => {
+    const refreshLocations = () => {
         let options = {
             method: 'GET',
-            url: 'https://community-open-weather-map.p.rapidapi.com/weather',
-            params: {
-                lang: 'en',
-                lat: latLon[0],
-                lon: latLon[1],
-                units: units
-            },
-            headers: {
-                'x-rapidapi-key': '9e9dab8357mshe7ec73e2128d255p1e20cejsn22495ab03d4c',
-                'x-rapidapi-host': 'community-open-weather-map.p.rapidapi.com'
-            }
+            url: '/location'
         };
 
         axios.request(options).then(function (response) {
-            console.log(response.data);
+            setLocations(response.data)
         }).catch(function (error) {
             // TODO: Handle errors like a pro
             console.error(error);
@@ -106,7 +97,7 @@ export default function Dashboard(props) {
                             <Input
                                 type="text"
                                 name="location"
-                                value="Lexington, KY"
+                                value={location}
                                 className="mt-1 block w-full"
                                 handleChange={event => setLocation(event.target.value)}
                             />
@@ -116,7 +107,7 @@ export default function Dashboard(props) {
 
                 <div className="m-4">
                     <Locations
-                        locations={props.locations}
+                        locations={locations}
                         user={props.user}
                     />
                 </div>
