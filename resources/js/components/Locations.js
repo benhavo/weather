@@ -5,7 +5,7 @@ export default function Locations({ locations = null, user = null }) {
 
     if (locations && user) {
         return (
-            <div className="flex flex-row flex-wrap gap-x-5 rounded-lg max-w-7xl mx-auto">
+            <div className="flex flex-row flex-wrap gap-5 rounded-lg max-w-7xl mx-auto">
                 {locations.map((location) =>
                     <Location location={location} user={user} key={location.id}/>
                 )}
