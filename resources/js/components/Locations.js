@@ -1,19 +1,21 @@
 import React from 'react';
 import Location from '@/Components/Location';
 
-export default function Locations({ type = 'submit', className = '', onClick = null, processing, children }) {
+export default function Locations({ locations = null, user = null }) {
+
+    if (locations && user) {
+        return (
+            <div className="flex flex-row flex-wrap gap-x-5 rounded-lg max-w-7xl mx-auto">
+                {locations.map((location) =>
+                    <Location location={location} user={user} />
+                )}
+            </div>
+        );
+    }
+
     return (
-        <button
-            type={type}
-            className={
-                `inline-flex items-center px-4 py-2 bg-gray-900 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest active:bg-gray-900 transition ease-in-out duration-150 ${
-                    processing && 'opacity-25'
-                } ` + className
-            }
-            disabled={processing}
-            onClick={onClick}
-        >
-            {children}
-        </button>
+        <div className="flex flex-row flex-wrap gap-x-5 rounded-lg max-w-7xl mx-auto">
+            <Location location={location} user={user} />
+        </div>
     );
 }

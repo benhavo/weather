@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['middleware' => ['auth:api'], 'namespace' => '\App\Http\Controllers'], function () {
+    Route::post('/location', 'LocationController@store')->name('api.locations.store');
+});
+
