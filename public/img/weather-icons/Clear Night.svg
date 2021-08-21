@@ -1,0 +1,28 @@
+<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80">
+	<title>Breezy</title>
+	<defs>
+		<linearGradient id="grd1" gradientUnits="userSpaceOnUse"  x1="16.938" y1="65.959" x2="62.845" y2="20.052">
+			<stop offset="0" stop-color="#00ccff"  />
+			<stop offset="1" stop-color="#5ddefe"  />
+		</linearGradient>
+		<linearGradient id="grd2" gradientUnits="userSpaceOnUse"  x1="43.101" y1="20.103" x2="50.507" y2="12.697">
+			<stop offset="0" stop-color="#ffbc27"  />
+			<stop offset="1" stop-color="#fde252"  />
+		</linearGradient>
+		<linearGradient id="grd3" gradientUnits="userSpaceOnUse"  x1="49.349" y1="36.594" x2="60.572" y2="25.371">
+			<stop offset="0" stop-color="#ffbc27"  />
+			<stop offset="1" stop-color="#fde252"  />
+		</linearGradient>
+	</defs>
+	<style>
+		tspan { white-space:pre }
+		.shp0 { fill: url(#grd1) } 
+		.shp1 { fill: url(#grd2) } 
+		.shp2 { fill: url(#grd3) } 
+	</style>
+	<g id="Clear Night">
+		<path id="moon" class="shp0" d="M40.33 65.96C27.43 65.96 16.94 55.47 16.94 42.57C16.94 32.2 23.9 22.96 33.87 20.1C34.31 19.98 34.76 20.1 35.08 20.41C35.39 20.73 35.51 21.19 35.39 21.61C34.84 23.53 34.56 25.47 34.56 27.4C34.56 38.94 43.95 48.34 55.5 48.34C57.42 48.34 59.37 48.06 61.28 47.51C61.71 47.39 62.17 47.51 62.49 47.82C62.8 48.14 62.92 48.6 62.8 49.03C59.94 59 50.7 65.96 40.33 65.96Z" />
+		<path id="star-01" class="shp1" d="M47.32 19.32C47.04 20.36 46.57 20.36 46.29 19.32C46.01 18.28 44.92 17.2 43.88 16.92C42.84 16.63 42.84 16.17 43.88 15.89C44.92 15.6 46.01 14.52 46.29 13.48C46.57 12.44 47.04 12.44 47.32 13.48C47.6 14.52 48.69 15.6 49.73 15.89C50.77 16.17 50.77 16.63 49.73 16.92C48.69 17.2 47.6 18.28 47.32 19.32Z" />
+		<path id="star-02" class="shp2" d="M55.74 35.41C55.31 36.99 54.61 36.99 54.18 35.41C53.75 33.83 52.11 32.19 50.53 31.76C48.95 31.33 48.95 30.63 50.53 30.2C52.11 29.77 53.75 28.13 54.18 26.55C54.61 24.98 55.31 24.98 55.74 26.55C56.17 28.13 57.81 29.77 59.39 30.2C60.97 30.63 60.97 31.33 59.39 31.76C57.81 32.19 56.17 33.83 55.74 35.41Z" />
+	</g>
+</svg>

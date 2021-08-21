@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Authenticated from '@/Layouts/Authenticated';
 import Button from '@/Components/Button';
 import Input from '@/Components/Input';
+import Locations from '@/Components/Locations';
 import { Head } from '@inertiajs/inertia-react';
 import axios from "axios";
 
@@ -9,15 +10,34 @@ export default function Dashboard(props) {
     const [units, setUnits] = useState('metric');
     const [location, setLocation] = useState('Lexington, KY');
 
-    const handleClick = (e) => {
-        e.preventDefault();
+    var intervalID;
 
-        getLatLong();
-    };
+    const addLocation = (e) => {
+        let latLong = getLatLong();
 
-    const handleChange = (e) => {
+        if (!latLong) {
+            // TODO: Error Message to user
+            return;
+        }
 
-    };
+        let options = {
+            method: 'POST',
+            url: '/api/location',
+            params: {
+                user_id: props.user.id,
+                name: location,
+                lat: latLong[0],
+                long: latLong[1]
+            }
+        };
+
+        axios.request(options).then(function (response) {
+            console.log(response.data);
+        }).catch(function (error) {
+            // TODO: Handle errors like a pro
+            console.error(error);
+        });
+    }
 
     const getLatLong = () => {
         let options = {
@@ -25,19 +45,19 @@ export default function Dashboard(props) {
             url: 'https://open.mapquestapi.com/geocoding/v1/address',
             params: {
                 key: 'yqMMGZPKgoa0m4l9Te7wdhk3XdiFG7C7',
-                location: $('#location').value()
+                location: {location}
             }
         };
 
         axios.request(options).then(function (response) {
-            console.log(response.data);
-            getWeather([
+            return [
                 response.data.results[0].locations[0].latLng.lat,
                 response.data.results[0].locations[0].latLng.lng
-            ]);
+            ];
         }).catch(function (error) {
             // TODO: Handle errors like a pro
             console.error(error);
+            return false;
         });
     }
 
@@ -73,23 +93,34 @@ export default function Dashboard(props) {
         >
             <Head title="Dashboard" />
 
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 bg-white border-b border-gray-200">You're logged in!</div>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                <div className="m-4">
+                    <div className="flex flex-row gap-x-1 max-w-7xl mx-auto">
+                        <div className="flex-none">
+                            <Button className="mt-1 py-3" onClick={addLocation}>
+                                Add a Location
+                            </Button>
+                        </div>
+                        <div className="flex-grow">
+                            <Input
+                                type="text"
+                                name="location"
+                                value="Lexington, KY"
+                                className="mt-1 block w-full"
+                                handleChange={event => setLocation(event.target.value)}
+                            />
+                        </div>
                     </div>
                 </div>
+
+                <div className="m-4">
+                    <Locations
+                        locations={props.locations}
+                        user={props.user}
+                    />
+                </div>
             </div>
-            <Input
-                type="text"
-                name="location"
-                value="Lexington, KY"
-                className="mt-1 block w-full"
-                handleChange={handleChange}
-            />
-            <Button className="ml-4" onClick={handleClick}>
-                Get The Weather
-            </Button>
 
         </Authenticated>
     );
