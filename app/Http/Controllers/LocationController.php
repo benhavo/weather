@@ -14,9 +14,23 @@ use Inertia\Inertia;
 class LocationController extends Controller
 {
     /**
-     * Display the login view.
+     * List Locations for User.
      *
-     * @return \Inertia\Response
+     * @return boolean
+     */
+    public function index(Request $request)
+    {
+        $user = User::find(auth()->user()->id);
+
+        $locations = new Location();
+
+        return $locations->where('user_id', $user->id)->get();
+    }
+
+    /**
+     * Display store Location.
+     *
+     * @return boolean
      */
     public function store(Request $request)
     {
