@@ -9,15 +9,14 @@ import axios from "axios";
 export default function Dashboard(props) {
     const [location, setLocation] = useState('Lexington, KY');
     const [locations, setLocations] = useState(props.locations);
-
     const addLocation = (e) => {
         // First, we need the lat/long from the Mapquest API.
         // This allows input of address to determine location
         let options = {
             method: 'GET',
-            url: 'https://open.mapquestapi.com/geocoding/v1/address',
+            url: process.env.MIX_OPENGEOCODING_URL,
             params: {
-                key: 'yqMMGZPKgoa0m4l9Te7wdhk3XdiFG7C7',
+                key: process.env.MIX_OPENGEOCODING_KEY,
                 location: location
             }
         };
@@ -53,11 +52,11 @@ export default function Dashboard(props) {
                 refreshLocations();
             }).catch(function (error) {
                 // TODO: Handle errors like a pro
-                console.error(error);
+                // console.error(error);
             });
         }).catch(function (error) {
             // TODO: Handle errors like a pro
-            console.error(error);
+            // console.error(error);
             return false;
         });
     }
@@ -72,7 +71,7 @@ export default function Dashboard(props) {
             setLocations(response.data)
         }).catch(function (error) {
             // TODO: Handle errors like a pro
-            console.error(error);
+            // console.error(error);
         });
     }
 
@@ -109,6 +108,7 @@ export default function Dashboard(props) {
                     <Locations
                         locations={locations}
                         user={props.user}
+                        refreshLocations={refreshLocations}
                     />
                 </div>
             </div>

@@ -1,4 +1,4 @@
-/vendor/
+/vendor
 /storage
 bower_components
 /public/hot

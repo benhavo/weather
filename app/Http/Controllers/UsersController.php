@@ -23,8 +23,24 @@ class UsersController extends Controller
         $user = User::find(auth()->user()->id);
 
         return Inertia::render('User', [
+            'user' => $user,
             'locations' => $user->locations,
         ]);
+    }
+
+    /**
+     * Update user.
+     *
+     * @return boolean
+     */
+    public function update(Request $request, User $user_id)
+    {
+        $user = User::find(auth()->user()->id);
+        $user->name = $request->name;
+        $user->units = $request->units ?? null;
+        $user->save();
+
+        return $user->toJson();
     }
 
     /**

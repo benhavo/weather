@@ -28,7 +28,7 @@ class LocationController extends Controller
     }
 
     /**
-     * Display store Location.
+     * Store Location.
      *
      * @return boolean
      */
@@ -39,6 +39,18 @@ class LocationController extends Controller
         $location = new Location();
         $location->fill(array_merge($request->all(), ['user_id' => $user->id]));
         $location->save();
+
+        return true;
+    }
+
+    /**
+     * Delete Location.
+     *
+     * @return boolean
+     */
+    public function destroy(Location $location)
+    {
+        $location->delete();
 
         return true;
     }

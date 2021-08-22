@@ -1,9 +1,25 @@
 import React, { useState, useEffect } from 'react';
 
-export default function Location({ location = null, user = null }) {
+export default function Location({ location = null, user = null, refreshLocations }) {
     const [weather, setWeather] = useState('');
 
     useEffect(() => { getWeather(); }, []);
+
+    const deleteLocation = () => {
+        if (window.confirm('Are you sure you wish to delete this location?')) {
+            let options = {
+                method: 'DELETE',
+                url: '/location/' + location.id
+            };
+
+            axios.request(options).then(function (response) {
+                refreshLocations();
+            }).catch(function (error) {
+                // TODO: Handle errors like a pro
+                // console.error(error);
+            });
+        }
+    }
 
     const imageExists = (image_url) => {
         var http = new XMLHttpRequest();
@@ -21,7 +37,7 @@ export default function Location({ location = null, user = null }) {
 
         let options = {
             method: 'GET',
-            url: 'https://community-open-weather-map.p.rapidapi.com/weather',
+            url: process.env.MIX_OPENWEATHERMAP_URL,
             params: {
                 lang: 'en',
                 lat: location.lat,
@@ -29,7 +45,7 @@ export default function Location({ location = null, user = null }) {
                 units: user.units
             },
             headers: {
-                'x-rapidapi-key': '9e9dab8357mshe7ec73e2128d255p1e20cejsn22495ab03d4c',
+                'x-rapidapi-key': process.env.MIX_OPENWEATHERMAP_KEY,
                 'x-rapidapi-host': 'community-open-weather-map.p.rapidapi.com'
             }
         };
@@ -58,7 +74,7 @@ export default function Location({ location = null, user = null }) {
             setWeather(data);
         }).catch(function (error) {
             // TODO: Handle errors like a pro
-            console.error(error);
+            // console.error(error);
         });
     }
 
@@ -79,6 +95,11 @@ export default function Location({ location = null, user = null }) {
                     <div className="flex flex-col justify-center items-center text-gray-900">
                         <p className="font-bold text-2xl">{weather.temp} &deg;{user.units == 'imperial' ? 'F' : 'C'}</p>
                         <p className="font-bold text-xl">{weather.condition}</p>
+                    </div>
+                </div>
+                <div className="loc-actions">
+                    <div className="flex flex-col justify-center items-center text-gray-900">
+                        <button onClick={deleteLocation} className="p-2 bg-red-400 border border-transparent rounded font-semibold text-sm text-white hover:bg-red-700 transition ease-in-out duration-150">Delete</button>
                     </div>
                 </div>
             </div>
