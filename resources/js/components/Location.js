@@ -21,7 +21,7 @@ export default function Location({ location = null, user = null }) {
 
         let options = {
             method: 'GET',
-            url: 'https://community-open-weather-map.p.rapidapi.com/weather',
+            url: process.env.MIX_OPENWEATHERMAP_URL,
             params: {
                 lang: 'en',
                 lat: location.lat,
@@ -29,7 +29,7 @@ export default function Location({ location = null, user = null }) {
                 units: user.units
             },
             headers: {
-                'x-rapidapi-key': '9e9dab8357mshe7ec73e2128d255p1e20cejsn22495ab03d4c',
+                'x-rapidapi-key': process.env.MIX_OPENWEATHERMAP_KEY,
                 'x-rapidapi-host': 'community-open-weather-map.p.rapidapi.com'
             }
         };
@@ -79,6 +79,11 @@ export default function Location({ location = null, user = null }) {
                     <div className="flex flex-col justify-center items-center text-gray-900">
                         <p className="font-bold text-2xl">{weather.temp} &deg;{user.units == 'imperial' ? 'F' : 'C'}</p>
                         <p className="font-bold text-xl">{weather.condition}</p>
+                    </div>
+                </div>
+                <div className="loc-actions">
+                    <div className="flex flex-col justify-center items-center text-gray-900">
+                        <button className="inline-flex items-center p-2 bg-red-400 border border-transparent rounded-full font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 transition ease-in-out duration-150"><i className="fas fa-times"></i></button>
                     </div>
                 </div>
             </div>

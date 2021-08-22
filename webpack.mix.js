@@ -1,5 +1,3 @@
-const mix = require('laravel-mix');
-
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -11,6 +9,21 @@ const mix = require('laravel-mix');
  |
  */
 
+const mix = require('laravel-mix');
+const path = require('path');
+require('dotenv').config();
+
+let webpack = require('webpack');
+
+let dotenvplugin = new webpack.DefinePlugin({
+    'process.env': {
+        MIX_OPENWEATHERMAP_URL: JSON.stringify(process.env.MIX_OPENWEATHERMAP_URL || ''),
+        MIX_OPENWEATHERMAP_KEY: JSON.stringify(process.env.MIX_OPENWEATHERMAP_KEY || ''),
+        MIX_OPENGEOCODING_URL: JSON.stringify(process.env.MIX_OPENGEOCODING_URL || ''),
+        MIX_OPENGEOCODING_KEY: JSON.stringify(process.env.MIX_OPENGEOCODING_KEY || '')
+    }
+})
+
 mix.js('resources/js/app.js', 'public/js')
     .react()
     .sass('resources/sass/app.scss', 'public/css')
@@ -21,7 +34,16 @@ mix.js('resources/js/app.js', 'public/js')
             require('tailwindcss'),
             require('autoprefixer'),
     ]})
-    .webpackConfig(require('./webpack.config'));
+    .webpackConfig({
+        resolve: {
+            alias: {
+                '@': path.resolve('resources/js'),
+            }
+        },
+        plugins: [
+            dotenvplugin
+        ]
+    });
 
 if (mix.inProduction()) {
     mix.version();

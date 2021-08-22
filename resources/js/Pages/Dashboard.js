@@ -9,15 +9,14 @@ import axios from "axios";
 export default function Dashboard(props) {
     const [location, setLocation] = useState('Lexington, KY');
     const [locations, setLocations] = useState(props.locations);
-
     const addLocation = (e) => {
         // First, we need the lat/long from the Mapquest API.
         // This allows input of address to determine location
         let options = {
             method: 'GET',
-            url: 'https://open.mapquestapi.com/geocoding/v1/address',
+            url: process.env.MIX_OPENGEOCODING_URL,
             params: {
-                key: 'yqMMGZPKgoa0m4l9Te7wdhk3XdiFG7C7',
+                key: process.env.MIX_OPENGEOCODING_KEY,
                 location: location
             }
         };
