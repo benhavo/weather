@@ -1,9 +1,25 @@
 import React, { useState, useEffect } from 'react';
 
-export default function Location({ location = null, user = null }) {
+export default function Location({ location = null, user = null, refreshLocations }) {
     const [weather, setWeather] = useState('');
 
     useEffect(() => { getWeather(); }, []);
+
+    const deleteLocation = () => {
+        if (window.confirm('Are you sure you wish to delete this location?')) {
+            let options = {
+                method: 'DELETE',
+                url: '/location/' + location.id
+            };
+
+            axios.request(options).then(function (response) {
+                refreshLocations();
+            }).catch(function (error) {
+                // TODO: Handle errors like a pro
+                // console.error(error);
+            });
+        }
+    }
 
     const imageExists = (image_url) => {
         var http = new XMLHttpRequest();
@@ -58,7 +74,7 @@ export default function Location({ location = null, user = null }) {
             setWeather(data);
         }).catch(function (error) {
             // TODO: Handle errors like a pro
-            console.error(error);
+            // console.error(error);
         });
     }
 
@@ -83,7 +99,7 @@ export default function Location({ location = null, user = null }) {
                 </div>
                 <div className="loc-actions">
                     <div className="flex flex-col justify-center items-center text-gray-900">
-                        <button className="inline-flex items-center p-2 bg-red-400 border border-transparent rounded-full font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 transition ease-in-out duration-150"><i className="fas fa-times"></i></button>
+                        <button onClick={deleteLocation} className="p-2 bg-red-400 border border-transparent rounded font-semibold text-sm text-white hover:bg-red-700 transition ease-in-out duration-150">Delete</button>
                     </div>
                 </div>
             </div>

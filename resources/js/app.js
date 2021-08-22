@@ -6,7 +6,7 @@ import { createInertiaApp } from '@inertiajs/inertia-react';
 import { InertiaProgress } from '@inertiajs/progress';
 import env from './env.js';
 
-const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'WeatherMan';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

@@ -52,11 +52,11 @@ export default function Dashboard(props) {
                 refreshLocations();
             }).catch(function (error) {
                 // TODO: Handle errors like a pro
-                console.error(error);
+                // console.error(error);
             });
         }).catch(function (error) {
             // TODO: Handle errors like a pro
-            console.error(error);
+            // console.error(error);
             return false;
         });
     }
@@ -71,7 +71,7 @@ export default function Dashboard(props) {
             setLocations(response.data)
         }).catch(function (error) {
             // TODO: Handle errors like a pro
-            console.error(error);
+            // console.error(error);
         });
     }
 
@@ -108,6 +108,7 @@ export default function Dashboard(props) {
                     <Locations
                         locations={locations}
                         user={props.user}
+                        refreshLocations={refreshLocations}
                     />
                 </div>
             </div>

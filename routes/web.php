@@ -30,8 +30,10 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/user', [UsersController::class, 'getUser'])->name('user');
+    Route::post('/user/{user_id}', [UsersController::class, 'update'])->name('user.update');
     Route::post('/location', [LocationController::class, 'store'])->name('location.store');
     Route::get('/location', [LocationController::class, 'index'])->name('location.index');
+    Route::delete('/location/{location}', [LocationController::class, 'destroy'])->name('location.destroy');
 });
 
 require __DIR__.'/auth.php';

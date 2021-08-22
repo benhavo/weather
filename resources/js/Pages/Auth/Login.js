@@ -75,7 +75,7 @@ export default function Login({ status, canResetPassword, canRegister }) {
                 </div>
 
                 <div className="flex items-center justify-center mt-4">
-                    <Button className="ml-4" processing={processing}>
+                    <Button processing={processing}>
                         Log in
                     </Button>
                 </div>
