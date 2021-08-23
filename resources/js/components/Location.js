@@ -51,11 +51,9 @@ export default function Location({ location = null, user = null, refreshLocation
         };
 
         axios.request(options).then(function (response) {
-            console.log(response.data);
             let temp = Math.round(response.data.main.temp * 10) / 10;
             let dateObj = new Date();
             dateObj.setTime((response.data.dt + response.data.timezone) * 1000);
-            console.log(dateObj.toDateString() + '  ' + dateObj.toTimeString());
             let hours = dateObj.getUTCHours();
             let minutes = dateObj.getMinutes();
             minutes = minutes < 10 ? '0' + minutes : minutes;
