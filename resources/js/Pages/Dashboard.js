@@ -99,6 +99,7 @@ export default function Dashboard(props) {
                                 value={location}
                                 className="mt-1 block w-full"
                                 handleChange={event => setLocation(event.target.value)}
+                                handleKeyUp={addLocation}
                             />
                         </div>
                     </div>

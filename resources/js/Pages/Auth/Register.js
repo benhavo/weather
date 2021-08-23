@@ -10,6 +10,7 @@ export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
+        units: 'imperial',
         password: '',
         password_confirmation: '',
     });
@@ -64,6 +65,21 @@ export default function Register() {
                         handleChange={onHandleChange}
                         required
                     />
+                </div>
+
+                <div className="mt-4">
+                    <Label value="Preferred Units" />
+
+                    <div className="flex flex-row gap-3 mt-3">
+                        <div>
+                            <input className="" type="radio" id="imperial" name="units" value="imperial" onChange={onHandleChange} checked={data.units == 'imperial'}/>
+                            <label className="ml-1" htmlFor="imperial">&deg;F</label>
+                        </div>
+                        <div>
+                            <input className="" type="radio" id="metric" name="units" value="metric" onChange={onHandleChange} checked={data.units == 'metric'}/>
+                            <label className="ml-1" htmlFor="metric">&deg;C</label>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="mt-4">

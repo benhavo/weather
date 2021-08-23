@@ -8,7 +8,7 @@ export default function Input({
     autoComplete,
     required,
     isFocused,
-    handleChange,
+    handleChange
 }) {
     const input = useRef();
 

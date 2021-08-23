@@ -51,18 +51,20 @@ export default function Location({ location = null, user = null, refreshLocation
         };
 
         axios.request(options).then(function (response) {
-            let data = {};
-            let temp = user.units == Math.round(response.data.main.temp * 10) / 10;
-            let dateObj = new Date((response.data.dt + response.data.timezone) * 1000);
-            let time = dateObj.toLocaleString('en-US', {
-                hour: 'numeric',
-                minute: 'numeric',
-                hour12: true
-            });
+            console.log(response.data);
+            let temp = Math.round(response.data.main.temp * 10) / 10;
+            let dateObj = new Date();
+            dateObj.setTime((response.data.dt + response.data.timezone) * 1000);
+            console.log(dateObj.toDateString() + '  ' + dateObj.toTimeString());
+            let hours = dateObj.getUTCHours();
+            let minutes = dateObj.getMinutes();
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            let meridiem = hours < 12 ? 'AM' : 'PM';
+            hours = hours === 0 ? '12' : hours > 12 ? hours - 12 : hours;
+            let time = `${hours}:${minutes} ${meridiem}`;
             // TODO: Add Night icons
             let icon_url = '/img/weather-icons/' + response.data.weather[0].main + '.svg'
-
-            data = {
+            let data = {
                 condition: response.data.weather[0].main,
                 temp: temp,
                 icon_url: imageExists(icon_url) ? icon_url : null,
