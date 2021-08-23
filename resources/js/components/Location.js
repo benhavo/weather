@@ -72,6 +72,9 @@ export default function Location({ location = null, user = null, refreshLocation
             };
 
             setWeather(data);
+
+            // Refresh in 10 minutes
+            setInterval(getWeather(), 600000);
         }).catch(function (error) {
             // TODO: Handle errors like a pro
             // console.error(error);
